@@ -6,13 +6,15 @@ public class Player : MonoBehaviour
 {
     public float SpeedInMeterPerSecond = 6.0f;
     public float RotationSpeedInDegreePerSecond = 15.0f;
-
+    private float speed2;
+    private float speed3;
     public GameObject _playerVisual;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        speed2 = SpeedInMeterPerSecond + 3.0f;
+        speed3 = SpeedInMeterPerSecond;
     }
 
     // Update is called once per frame
@@ -37,7 +39,14 @@ public class Player : MonoBehaviour
 
         // on peut bouger si on a rien touché ou si on a touché un trigger
         bool lCanMove = (lHitSomething == false) || (raycastHit.collider.isTrigger == true);
-
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            SpeedInMeterPerSecond = speed2;
+        }
+        else
+        {
+            SpeedInMeterPerSecond = speed3;
+        }
         if (lCanMove == false)
         {
             Vector3 moveDirX = new Vector3(lDirection.x, 0, 0).normalized;
