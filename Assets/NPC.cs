@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Cinemachine;
 
 public class NPC : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class NPC : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && playerIsClose)
+        if ((Input.GetKeyDown(KeyCode.E)) || Input.GetButtonDown(buttonName: "Croix")  && playerIsClose)
         {
             if (dialoguePanel.activeInHierarchy)
             {

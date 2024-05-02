@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,23 +13,25 @@ public class Player : MonoBehaviour
     public GameObject _playerVisual;
     private bool isCrouching = false; // Indique si le joueur est accroupi
     public LayerMask collisionMask; // Masque des couches pour les collisions
+    public CinemachineVirtualCamera Camera;
 
     void Start()
     {
         currentCapsuleHeight = standingCapsuleHeight; // Au début, le joueur est debout
+        Camera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
     }
 
     void Update()
     {
         // Gestion de l'accroupissement
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetButtonDown(buttonName: "Rond"))
         {
             isCrouching = !isCrouching; // Inverser l'état de l'accroupissement
             currentCapsuleHeight = isCrouching ? crouchingCapsuleHeight : standingCapsuleHeight;
 
            // Mettre à jour la hauteur de la capsule
         }
-        if (Input.GetKeyUp(KeyCode.LeftControl))
+        if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetButtonUp(buttonName: "Rond"))
         {
             currentCapsuleHeight = standingCapsuleHeight;
         }
@@ -46,7 +49,16 @@ public class Player : MonoBehaviour
         // Effectuer un Raycast vers l'avant pour détecter les collisions
         RaycastHit hit;
         bool lHitSomething = Physics.Raycast(raycastOrigin, lDirection, out hit, lDetectionDistance, collisionMask);
-
+        if (Input.GetButtonDown(buttonName: "R2"))
+        {
+            SpeedInMeterPerSecond = 15.0f;
+            Camera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0.5f;
+        }
+        if (Input.GetButtonUp(buttonName: "R2"))
+        {
+            SpeedInMeterPerSecond = 6.0f;
+            Camera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0f;
+        }
         // Si une collision est détectée, empêcher le joueur de bouger
         if (lHitSomething)
         {
