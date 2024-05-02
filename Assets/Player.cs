@@ -14,11 +14,16 @@ public class Player : MonoBehaviour
     private bool isCrouching = false; // Indique si le joueur est accroupi
     public LayerMask collisionMask; // Masque des couches pour les collisions
     public CinemachineVirtualCamera Camera;
+    public float raycast = 2.0f;
+    public GameObject Light;
+    private bool lumiere = false;
+    public Transform CameraPoint;
 
     void Start()
     {
         currentCapsuleHeight = standingCapsuleHeight; // Au début, le joueur est debout
         Camera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
+        Light.SetActive(false);
     }
 
     void Update()
@@ -40,10 +45,11 @@ public class Player : MonoBehaviour
         Vector3 raycastOrigin = transform.position + (Vector3.up * currentCapsuleHeight);
 
         Vector3 lInputVector = new Vector3(Input.GetAxisRaw("Horizontal"), 0.0f, Input.GetAxisRaw("Vertical"));
+        Vector3 lInputCam = new Vector3(Input.GetAxisRaw("CamHorizontal"), 0.0f, Input.GetAxisRaw("CamVertical"));
         Vector3 lDirection = lInputVector.normalized;
 
-        float lDetectionDistance = SpeedInMeterPerSecond * Time.deltaTime;
-        float lPlayerRadius = .5f;
+        float lDetectionDistance = raycast;
+        float vitesse = SpeedInMeterPerSecond * Time.deltaTime;
         Vector3 lPoint2 = transform.position + (Vector3.up * currentCapsuleHeight);
 
         // Effectuer un Raycast vers l'avant pour détecter les collisions
@@ -54,10 +60,24 @@ public class Player : MonoBehaviour
             SpeedInMeterPerSecond = 15.0f;
             Camera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0.5f;
         }
+        CameraPoint.transform.position += lInputCam;
         if (Input.GetButtonUp(buttonName: "R2"))
         {
             SpeedInMeterPerSecond = 6.0f;
             Camera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0f;
+        }
+        if (Input.GetButtonDown(buttonName: "L1"))
+        {
+            if (lumiere == true)
+            {
+                Light.SetActive(false);
+                lumiere = false;
+            }
+            else
+            {
+                Light.SetActive(true);
+                lumiere = true;
+            }
         }
         // Si une collision est détectée, empêcher le joueur de bouger
         if (lHitSomething)
@@ -68,7 +88,7 @@ public class Player : MonoBehaviour
         else
         {
             // Si aucune collision n'est détectée, déplacer le joueur normalement
-            transform.position += lDirection * lDetectionDistance;
+            transform.position += lDirection * vitesse;
         }
 
         // Ajuster la rotation du joueur
