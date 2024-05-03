@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     public GameObject _playerVisual;
     private bool isCrouching = false; // Indique si le joueur est accroupi
     public LayerMask collisionMask; // Masque des couches pour les collisions
-    public CinemachineVirtualCamera Camera;
+    public CinemachineVirtualCamera Camera1;
     public float raycast = 2.0f;
     public GameObject Light;
     private bool lumiere = false;
@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         currentCapsuleHeight = standingCapsuleHeight; // Au début, le joueur est debout
-        Camera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
+        Camera1.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
         Light.SetActive(false);
     }
 
@@ -40,13 +40,16 @@ public class Player : MonoBehaviour
         {
             currentCapsuleHeight = standingCapsuleHeight;
         }
-
         // Calcul de la position de départ du rayon à partir du bord de la capsule
         Vector3 raycastOrigin = transform.position + (Vector3.up * currentCapsuleHeight);
 
         Vector3 lInputVector = new Vector3(Input.GetAxisRaw("Horizontal"), 0.0f, Input.GetAxisRaw("Vertical"));
         Vector3 lInputCam = new Vector3((Input.GetAxisRaw("CamVertical") * -1), (Input.GetAxisRaw("CamHorizontal") * -1), 0.0f);
         Vector3 lDirection = lInputVector.normalized;
+        if (Input.GetAxisRaw("Horizontal") > 0)
+        {
+            lDirection += Camera.main.transform.right;
+        }
         Debug.Log(lInputCam);
         float lDetectionDistance = raycast;
         float vitesse = SpeedInMeterPerSecond * Time.deltaTime;
@@ -59,13 +62,13 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown(buttonName: "R2"))
         {
             SpeedInMeterPerSecond = 15.0f;
-            Camera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0.5f;
+            Camera1.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 1f;
         }
         CameraPoint.Rotate(lInputCam);
         if (Input.GetButtonUp(buttonName: "R2"))
         {
             SpeedInMeterPerSecond = 6.0f;
-            Camera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0f;
+            Camera1.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0f;
         }
         if (Input.GetButtonDown(buttonName: "L1"))
         {
