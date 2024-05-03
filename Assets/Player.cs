@@ -45,9 +45,9 @@ public class Player : MonoBehaviour
         Vector3 raycastOrigin = transform.position + (Vector3.up * currentCapsuleHeight);
 
         Vector3 lInputVector = new Vector3(Input.GetAxisRaw("Horizontal"), 0.0f, Input.GetAxisRaw("Vertical"));
-        Vector3 lInputCam = new Vector3(Input.GetAxisRaw("CamHorizontal"), 0.0f, Input.GetAxisRaw("CamVertical"));
+        Vector3 lInputCam = new Vector3((Input.GetAxisRaw("CamVertical") * -1), (Input.GetAxisRaw("CamHorizontal") * -1), 0.0f);
         Vector3 lDirection = lInputVector.normalized;
-
+        Debug.Log(lInputCam);
         float lDetectionDistance = raycast;
         float vitesse = SpeedInMeterPerSecond * Time.deltaTime;
         Vector3 lPoint2 = transform.position + (Vector3.up * currentCapsuleHeight);
@@ -55,12 +55,13 @@ public class Player : MonoBehaviour
         // Effectuer un Raycast vers l'avant pour détecter les collisions
         RaycastHit hit;
         bool lHitSomething = Physics.Raycast(raycastOrigin, lDirection, out hit, lDetectionDistance, collisionMask);
+        bool lHitSomething2 = Physics.SphereCast(lPoint2, 0.5f, lDirection, out hit, lDetectionDistance, collisionMask);
         if (Input.GetButtonDown(buttonName: "R2"))
         {
             SpeedInMeterPerSecond = 15.0f;
             Camera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0.5f;
         }
-        CameraPoint.transform.position += lInputCam;
+        CameraPoint.Rotate(lInputCam);
         if (Input.GetButtonUp(buttonName: "R2"))
         {
             SpeedInMeterPerSecond = 6.0f;
@@ -80,7 +81,7 @@ public class Player : MonoBehaviour
             }
         }
         // Si une collision est détectée, empêcher le joueur de bouger
-        if (lHitSomething)
+        if (lHitSomething || lHitSomething2)
         {
             // Arrêter le mouvement du joueur
             lDirection = Vector3.zero;
