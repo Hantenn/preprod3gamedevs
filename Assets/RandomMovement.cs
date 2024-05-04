@@ -7,6 +7,8 @@ public class RandomMovement : MonoBehaviour //don't forget to change the script 
 {
     public NavMeshAgent agent;
     public float range; //radius of sphere
+    public GameObject Capsule;
+    public GameObject SousCapsule;
 
     public Transform centrePoint; //centre of the area the agent wants to move around in
     //instead of centrePoint you can set it as the transform of the agent if you don't care about a specific area
@@ -28,7 +30,15 @@ public class RandomMovement : MonoBehaviour //don't forget to change the script 
                 agent.SetDestination(point);
             }
         }
-
+        RaycastHit Hit;
+        bool HitSomething = Physics.Raycast(transform.position,transform.position,out Hit, 5.0f);
+        if (Hit.collider.CompareTag("Player"))
+        {
+            Debug.Log("Player");
+            Capsule.GetComponent<RandomMovement>().enabled = false;
+            Capsule.GetComponent<ia>().enabled = true;
+            SousCapsule.GetComponent<Detect>().enabled = true;
+        }
     }
     bool RandomPoint(Vector3 center, float range, out Vector3 result)
     {

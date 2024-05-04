@@ -6,6 +6,8 @@ public class ia : MonoBehaviour
 {
     public Transform Player;
     private UnityEngine.AI.NavMeshAgent agent;
+    public GameObject Capsule;
+    public bool Here = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,5 +18,10 @@ public class ia : MonoBehaviour
     void Update()
     {
         agent.destination = Player.position;
+        if (Here == true)
+        {
+            Capsule.GetComponent<RandomMovement>().enabled = true;
+            Capsule.GetComponent<ia>().enabled = false;
+        }
     }
 }
