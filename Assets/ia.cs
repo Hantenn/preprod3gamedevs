@@ -18,10 +18,5 @@ public class ia : MonoBehaviour
     void Update()
     {
         agent.destination = Player.position;
-        if (Here == true)
-        {
-            Capsule.GetComponent<RandomMovement>().enabled = true;
-            Capsule.GetComponent<ia>().enabled = false;
-        }
     }
 }

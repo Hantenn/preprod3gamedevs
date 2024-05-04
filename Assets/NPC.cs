@@ -9,6 +9,7 @@ public class NPC : MonoBehaviour
     public GameObject dialoguePanel;
     public Text dialogueText;
     public string[] dialogue;
+    public string[] dialogue2;
     private int index;
 
     public GameObject contButton;
