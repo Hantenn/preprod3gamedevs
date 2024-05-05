@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
         Vector3 raycastOrigin = transform.position + (Vector3.up * currentCapsuleHeight);
 
         Vector3 lInputVector = new Vector3(Input.GetAxisRaw("Horizontal"), 0.0f, Input.GetAxisRaw("Vertical"));
-        Vector3 lInputCam = new Vector3((Input.GetAxisRaw("CamVertical") * -1), (Input.GetAxisRaw("CamHorizontal") * -1), 0.0f);
+        Vector3 lInputCam = new Vector3((Input.GetAxisRaw("CamVertical")), (Input.GetAxisRaw("CamHorizontal")), 0.0f);
         Vector3 lDirection = lInputVector.normalized;
         if (Input.GetAxisRaw("Horizontal") > 0)
         {
