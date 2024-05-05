@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class Detect : MonoBehaviour
 {
-    public GameObject Capsule;
-    public bool active = true;
+    public bool active;
     // Start is called before the first frame update
     void Start()
     {
-        
+        active = true;
     }
 
     // Update is called once per frame

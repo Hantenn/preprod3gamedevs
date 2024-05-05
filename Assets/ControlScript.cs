@@ -14,7 +14,7 @@ public class ControlScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Capsule.GetComponent<RandomMovement>().deactivate == true)
+        if (Capsule.GetComponent<RandomMovement>().deactivate == true && Capsule.GetComponent<ia>().enabled == false)
         {
             Debug.Log("Test");
             Capsule.GetComponent<ia>().enabled = true;
@@ -23,13 +23,13 @@ public class ControlScript : MonoBehaviour
             SousCapsule.GetComponent<Detect>().active = true;
 
         }
-        if (SousCapsule.GetComponent<Detect>().active == false)
+        if (SousCapsule.GetComponent<Detect>().active == false && Capsule.GetComponent<RandomMovement>().enabled == false)
         {
             Debug.Log("Test2");
+            Capsule.GetComponent<RandomMovement>().deactivate = false;
             Capsule.GetComponent<ia>().enabled = false;
             SousCapsule.GetComponent<Detect>().enabled = false;
             Capsule.GetComponent<RandomMovement>().enabled = true;
-            Capsule.GetComponent<RandomMovement>().deactivate = false;
         }
     }
 }
