@@ -10,12 +10,14 @@ public class RandomMovement : MonoBehaviour //don't forget to change the script 
     public GameObject Capsule;
     public GameObject SousCapsule;
     public bool deactivate = false;
-    public Transform centrePoint; //centre of the area the agent wants to move around in
+    public Transform centrePoint;
+    public bool IsClose;//centre of the area the agent wants to move around in
     //instead of centrePoint you can set it as the transform of the agent if you don't care about a specific area
-
+    public Transform Player;
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        IsClose = false;
     }
 
 
@@ -36,6 +38,10 @@ public class RandomMovement : MonoBehaviour //don't forget to change the script 
         {
             Debug.Log("Player Detected");
             deactivate = true;
+        }
+        if (IsClose == true)
+        {
+            agent.SetDestination(Player.position);
         }
     }
     bool RandomPoint(Vector3 center, float range, out Vector3 result)
