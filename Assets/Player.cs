@@ -46,6 +46,8 @@ public class Player : MonoBehaviour
         Vector3 lInputVector = new Vector3(Input.GetAxisRaw("Horizontal"), 0.0f, Input.GetAxisRaw("Vertical"));
         Vector3 lInputCam = new Vector3((Input.GetAxisRaw("CamVertical")), (Input.GetAxisRaw("CamHorizontal")), 0.0f);
         Vector3 lDirection = lInputVector.normalized;
+        lDirection = lInputVector.x * Camera.main.transform.right + lInputVector.z * Camera.main.transform.forward;
+        lDirection.y = 0;
         Debug.Log(lInputCam);
         float lDetectionDistance = raycast;
         float vitesse = SpeedInMeterPerSecond * Time.deltaTime;

@@ -2,16 +2,17 @@ using Cinemachine;
 using UnityEngine;
 
 [SelectionBase]
-public class Pickup : MonoBehaviour
+public class Pickup1 : MonoBehaviour
 {
     public ParticleSystem ParticleSystem;
     public float RotationSpeed = 20.0f;
     public GameObject ItemVisual;
     public GameObject mur;
+    public GameObject mur2;
     //private Hud _hud;
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         mur.SetActive(true);
         // place l'objet en utilisant la data de l'objet
@@ -36,6 +37,7 @@ public class Pickup : MonoBehaviour
             Instantiate(ParticleSystem, transform.position, Quaternion.identity);
             ItemVisual.SetActive(false);
             mur.SetActive(false);
+            mur2.SetActive(false);
             //VirtualCamera.enabled = false;
 
             //if (_hud != null)
