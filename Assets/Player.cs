@@ -18,16 +18,18 @@ public class Player : MonoBehaviour
     public GameObject Light;
     private bool lumiere = false;
     public Transform CameraPoint;
+    public GameObject prefabball;
 
     void Start()
     {
         currentCapsuleHeight = standingCapsuleHeight; // Au début, le joueur est debout
         Camera1.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
-        Light.SetActive(false);
+        Light.SetActive(false); 
     }
 
     void Update()
     {
+
         // Gestion de l'accroupissement
         if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetButtonDown(buttonName: "Rond"))
         {
@@ -57,6 +59,11 @@ public class Player : MonoBehaviour
         RaycastHit hit;
         bool lHitSomething = Physics.Raycast(raycastOrigin, lDirection, out hit, lDetectionDistance, collisionMask);
         bool lHitSomething2 = Physics.SphereCast(lPoint2, 0.5f, lDirection, out hit, lDetectionDistance, collisionMask);
+        if (Input.GetButtonDown(buttonName: "R1"))
+        {
+            prefabball.GetComponent<ball>().directionballe = lDirection;
+            Instantiate(prefabball, _playerVisual.transform.position, _playerVisual.transform.rotation);
+        }
         if (Input.GetButtonDown(buttonName: "R2"))
         {
             SpeedInMeterPerSecond = 15.0f;
