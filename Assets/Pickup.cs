@@ -4,7 +4,7 @@ using UnityEngine;
 [SelectionBase]
 public class Pickup : MonoBehaviour
 {
-    public ParticleSystem ParticleSystem;
+    public GameObject ParticleSystem;
     public float RotationSpeed = 20.0f;
     public GameObject ItemVisual;
     public GameObject mur;
@@ -33,7 +33,7 @@ public class Pickup : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
 
-            Instantiate(ParticleSystem, transform.position, Quaternion.identity);
+            ParticleSystem.SetActive(true);
             ItemVisual.SetActive(false);
             mur.SetActive(false);
             //VirtualCamera.enabled = false;

@@ -61,7 +61,9 @@ public class Player : MonoBehaviour
         bool lHitSomething2 = Physics.SphereCast(lPoint2, 0.5f, lDirection, out hit, lDetectionDistance, collisionMask);
         if (Input.GetButtonDown(buttonName: "R1"))
         {
-            prefabball.GetComponent<ball>().directionballe = lDirection;
+            Vector3 Directionballe = _playerVisual.transform.forward;
+            Debug.DrawRay(_playerVisual.transform.position, _playerVisual.transform.forward, Color.red, 2.0f);
+            prefabball.GetComponent<ball>().directionballe = Directionballe;
             Instantiate(prefabball, _playerVisual.transform.position, _playerVisual.transform.rotation);
         }
         if (Input.GetButtonDown(buttonName: "R2"))

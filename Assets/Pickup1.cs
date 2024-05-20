@@ -4,7 +4,7 @@ using UnityEngine;
 [SelectionBase]
 public class Pickup1 : MonoBehaviour
 {
-    public ParticleSystem ParticleSystem;
+    public GameObject ParticleSystem;
     public float RotationSpeed = 20.0f;
     public GameObject ItemVisual;
     public GameObject mur;
@@ -34,7 +34,7 @@ public class Pickup1 : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
 
-            Instantiate(ParticleSystem, transform.position, Quaternion.identity);
+            ParticleSystem.SetActive(true);
             ItemVisual.SetActive(false);
             mur.SetActive(false);
             mur2.SetActive(false);
