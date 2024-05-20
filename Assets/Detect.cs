@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Detect : MonoBehaviour
 {
+    public Transform Player;
+    public UnityEngine.AI.NavMeshAgent agent;
     public bool active;
+    private bool following = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,13 +17,17 @@ public class Detect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (following == true)
+        {
+            agent.destination = Player.position;
+        }
     }
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             Debug.Log("Playerplayer");
+            StartCoroutine(Follow());
         }
     }
     void OnTriggerExit(Collider other)
@@ -30,5 +37,11 @@ public class Detect : MonoBehaviour
             Debug.Log("Playerplayer2");
             active = false;
         }
+    }
+    IEnumerator Follow()
+    {
+        following = true;
+        yield return new WaitForSeconds(6);
+        following = false;
     }
 }
