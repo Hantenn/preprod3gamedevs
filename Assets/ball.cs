@@ -9,6 +9,7 @@ public class ball : MonoBehaviour
     public Vector3 directionballe;
     private bool speed = true;
     public GameObject ai;
+    public GameObject balle;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,12 +33,22 @@ public class ball : MonoBehaviour
     }
     void OnCollisionEnter(Collision collision)
     {
-        if collision.gameObject.tag == "Sol")
+        StartCoroutine(Destruction());
+        if (collision.gameObject.tag == "Sol")
         {
             ai.GetComponent<UnityEngine.AI.NavMeshAgent>().destination = transform.position;
         }
         Debug.Log("Collision");
         m_rb.velocity = Vector3.zero;
         speed = false;
+        if (collision.gameObject.tag == "capsule")
+        {
+            Destroy(balle);
+        }
+    }
+    IEnumerator Destruction()
+    {
+        yield return new WaitForSeconds(3.0f);
+        Destroy(balle);
     }
 }

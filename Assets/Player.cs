@@ -19,12 +19,14 @@ public class Player : MonoBehaviour
     private bool lumiere = false;
     public Transform CameraPoint;
     public GameObject prefabball;
+    public GameObject enemy;
 
     void Start()
     {
         currentCapsuleHeight = standingCapsuleHeight; // Au début, le joueur est debout
         Camera1.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
         Light.SetActive(false); 
+        prefabball.GetComponent<ball>().ai = enemy;
     }
 
     void Update()

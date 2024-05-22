@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Obstacle
   - Sol
+  - capsule
   layers:
   - Default
   - TransparentFX
@@ -14,7 +15,7 @@ TagManager:
   - Water
   - UI
   - ball
-  - 
+  - Infiltration
   - 
   - 
   - 
