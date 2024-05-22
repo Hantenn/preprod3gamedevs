@@ -8,6 +8,7 @@ public class ball : MonoBehaviour
     private Rigidbody m_rb;
     public Vector3 directionballe;
     private bool speed = true;
+    public GameObject ai;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +19,7 @@ public class ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (speed)
+        if (speed == true)
         {
             m_rb.AddForce(directionballe * m_speed);
         }
@@ -31,6 +32,10 @@ public class ball : MonoBehaviour
     }
     void OnCollisionEnter(Collision collision)
     {
+        if collision.gameObject.tag == "Sol")
+        {
+            ai.GetComponent<UnityEngine.AI.NavMeshAgent>().destination = transform.position;
+        }
         Debug.Log("Collision");
         m_rb.velocity = Vector3.zero;
         speed = false;
