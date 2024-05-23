@@ -8,6 +8,8 @@ public class Detect : MonoBehaviour
     public UnityEngine.AI.NavMeshAgent agent;
     public bool active;
     private bool following = false;
+    public GameObject zone;
+    private bool first = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +19,12 @@ public class Detect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (zone.GetComponent<dooropening>().compte == true && first == true)
+        {
+            agent.destination = Player.position;
+            agent.speed = 25;
+            first = false;
+        }
         if (following == true)
         {
             agent.destination = Player.position;

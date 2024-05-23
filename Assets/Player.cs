@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     public Transform CameraPoint;
     public GameObject prefabball;
     public GameObject enemy;
+    public float intensity;
 
     void Start()
     {
@@ -73,7 +74,7 @@ public class Player : MonoBehaviour
             SpeedInMeterPerSecond = 15.0f;
             Camera1.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 1f;
         }
-        CameraPoint.Rotate(lInputCam);
+        CameraPoint.Rotate(lInputCam * Time.deltaTime * intensity);
         if (Input.GetButtonUp(buttonName: "R2"))
         {
             SpeedInMeterPerSecond = 6.0f;

@@ -15,11 +15,16 @@ public class NPC : MonoBehaviour
     public GameObject contButton;
     public float wordSpeed;
     public bool playerIsClose;
+    public GameObject Light;
 
+    private void Start()
+    {
+        Light.SetActive(false);
+    }
     // Update is called once per frame
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.E)) || Input.GetButtonDown(buttonName: "Croix")  && playerIsClose)
+        if (((Input.GetKeyDown(KeyCode.E)) || Input.GetButtonDown(buttonName: "Croix"))  && playerIsClose)
         {
             if (dialoguePanel.activeInHierarchy)
             {
@@ -28,6 +33,7 @@ public class NPC : MonoBehaviour
             else
             {
                 dialoguePanel.SetActive(true);
+                Light.SetActive(true);
                 StartCoroutine(Typing());
             }
         }

@@ -8,6 +8,7 @@ public class Pickup : MonoBehaviour
     public float RotationSpeed = 20.0f;
     public GameObject ItemVisual;
     public GameObject mur;
+    public GameObject Light;
     //private Hud _hud;
 
     // Start is called before the first frame update
@@ -36,6 +37,7 @@ public class Pickup : MonoBehaviour
             ParticleSystem.SetActive(true);
             ItemVisual.SetActive(false);
             mur.SetActive(false);
+            Light.SetActive(true);
             //VirtualCamera.enabled = false;
 
             //if (_hud != null)
