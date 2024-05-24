@@ -9,6 +9,7 @@ public class text1 : MonoBehaviour
     public TextMeshProUGUI counterText;
     public int counter = 10;
     public bool stop = false;
+    public AudioSource audioporte;
 
     public void Start()
     {
@@ -26,6 +27,7 @@ public class text1 : MonoBehaviour
         if (counter < 0)
         {
             stop = true;
+            audioporte.Play(0);
         }
         else
         {

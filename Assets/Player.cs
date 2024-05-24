@@ -53,7 +53,6 @@ public class Player : MonoBehaviour
         Vector3 lDirection = lInputVector.normalized;
         lDirection = lInputVector.x * Camera.main.transform.right + lInputVector.z * Camera.main.transform.forward;
         lDirection.y = 0;
-        Debug.Log(lInputCam);
         float lDetectionDistance = raycast;
         float vitesse = SpeedInMeterPerSecond * Time.deltaTime;
         Vector3 lPoint2 = transform.position + (Vector3.up * currentCapsuleHeight);

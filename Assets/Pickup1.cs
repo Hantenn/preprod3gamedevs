@@ -9,6 +9,7 @@ public class Pickup1 : MonoBehaviour
     public GameObject ItemVisual;
     public GameObject mur;
     public GameObject mur2;
+    public AudioSource audioporte;
     //private Hud _hud;
 
     // Start is called before the first frame update
@@ -33,7 +34,7 @@ public class Pickup1 : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-
+            audioporte.Play(0);
             ParticleSystem.SetActive(true);
             ItemVisual.SetActive(false);
             mur.SetActive(false);
