@@ -17,7 +17,7 @@ public class NPC1 : MonoBehaviour
     public bool playerIsClose;
     public GameObject mur;
     public GameObject Light;
-
+    public AudioSource audioporte;
     void Start()
     {
         mur.SetActive(true);
@@ -36,6 +36,7 @@ public class NPC1 : MonoBehaviour
             {
                 dialoguePanel.SetActive(true);
                 Light.SetActive(false);
+                audioporte.Play();
                 StartCoroutine(Typing());
             }
         }
